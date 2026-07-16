@@ -1,0 +1,526 @@
+{
+  "rbc": {
+    "display_name": "RBC",
+    "description": "Canonical competitive RBC model from the official SSJ example.",
+    "mechanism_status": "canonical-equations-source-reproduction",
+    "calibration": {
+      "profile": "official-ssj-rbc-reproduction",
+      "status": "source-reproduction",
+      "sources": [
+        "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb"
+      ],
+      "notes": [
+        "Equations and numerical normalization reproduce the official SSJ RBC notebook.",
+        "Gal\u00ed notation: sigma is inverse EIS and phi is inverse Frisch.",
+        "alpha=0.11 is the notebook normalization, not a universal RBC calibration."
+      ],
+      "declared_values": {
+        "sigma": 1.0,
+        "phi": 1.0,
+        "delta": 0.025,
+        "alpha": 0.11,
+        "L": 1.0
+      }
+    },
+    "cartridge": null,
+    "blocks": [
+      "rbc_firm",
+      "rbc_household",
+      "rbc_markets"
+    ],
+    "unknowns": [
+      "K",
+      "L"
+    ],
+    "targets": [
+      "goods_mkt",
+      "euler"
+    ],
+    "exogenous": [
+      "Z"
+    ],
+    "steady_state_residuals": {
+      "goods_mkt": 1.1102230246251565e-16,
+      "euler": 0.0
+    },
+    "reference_shock": "Z",
+    "reference_shock_impact": 0.01,
+    "unknown_impacts": {
+      "K": 0.010688718466355393,
+      "L": 0.005122125431868939
+    },
+    "provenance": [
+      {
+        "block": "rbc_firm",
+        "role": "production and factor prices",
+        "equation": "official SSJ RBC firm block",
+        "source": "Auclert et al. sequence-jacobian example",
+        "url": "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb",
+        "status": "direct"
+      },
+      {
+        "block": "rbc_household",
+        "role": "labor supply and capital accumulation",
+        "equation": "official SSJ RBC household block",
+        "source": "Auclert et al. sequence-jacobian example",
+        "url": "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb",
+        "status": "direct"
+      },
+      {
+        "block": "rbc_markets",
+        "role": "Euler equation and clearing",
+        "equation": "official SSJ RBC market block",
+        "source": "Auclert et al. sequence-jacobian example",
+        "url": "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb",
+        "status": "direct"
+      }
+    ]
+  },
+  "rank_calvo_sticky_prices": {
+    "display_name": "RANK - Calvo sticky prices",
+    "description": "Gal\u00ed Chapter 3 representative-agent NK core with Calvo price setting and flexible wages.",
+    "mechanism_status": "canonical-gali-chapter-3",
+    "calibration": {
+      "profile": "gali-chapter-3-calvo",
+      "status": "canonical-textbook-calibration",
+      "sources": [
+        "https://crei.cat/wp-content/uploads/users/pages/ch3_slides_june2015%281%29.pdf",
+        "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod"
+      ],
+      "notes": [
+        "Calvo probability and the remaining values are Gal\u00ed's Chapter 3 baseline.",
+        "The Rotemberg and Calvo models share every parameter except the price-setting normalization."
+      ],
+      "declared_values": {
+        "beta": 0.99,
+        "sigma": 1.0,
+        "phi": 5.0,
+        "alpha": 0.25,
+        "epsilon_p": 9.0,
+        "theta_p": 0.75,
+        "phi_pi": 1.5,
+        "phi_y": 0.125,
+        "rho_a": 0.9,
+        "rho_z": 0.5,
+        "a": 0.0,
+        "z": 0.0,
+        "nu": 0.0,
+        "x": 0.0,
+        "pi_p": 0.0,
+        "psi_p": 372.8155339805824
+      }
+    },
+    "cartridge": "calvo",
+    "blocks": [
+      "natural_allocation",
+      "output_identity",
+      "taylor_price",
+      "dynamic_is",
+      "price_core_diagnostics",
+      "price_calvo"
+    ],
+    "unknowns": [
+      "x",
+      "pi_p"
+    ],
+    "targets": [
+      "is_residual",
+      "price_residual"
+    ],
+    "exogenous": [
+      "a",
+      "z",
+      "nu"
+    ],
+    "steady_state_residuals": {
+      "is_residual": 0.0,
+      "price_residual": 0.0
+    },
+    "reference_shock": "nu",
+    "reference_shock_impact": 0.0025,
+    "unknown_impacts": {
+      "x": -0.0025908507909362974,
+      "pi_p": -0.0008807182556648142
+    },
+    "provenance": [
+      {
+        "block": "natural_allocation",
+        "role": "natural output and real rate",
+        "equation": "Gal\u00ed Chapter 3 equations (20), (24)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      },
+      {
+        "block": "output_identity",
+        "role": "output-gap definition",
+        "equation": "x_t = y_t - y_t^n",
+        "source": "Gal\u00ed (2015), Chapter 3",
+        "url": "https://crei.cat/people/gali/",
+        "status": "algebraic-identity"
+      },
+      {
+        "block": "taylor_price",
+        "role": "price-inflation Taylor rule",
+        "equation": "Gal\u00ed Chapter 3 equation (26)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      },
+      {
+        "block": "dynamic_is",
+        "role": "representative-household Euler equation",
+        "equation": "Gal\u00ed Chapter 3 equation (23)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      },
+      {
+        "block": "price_core_diagnostics",
+        "role": "labor, MRS, MPL, and marginal-cost diagnostics",
+        "equation": "Gal\u00ed Chapter 3 equations (11), (12), and marginal-cost identity",
+        "source": "Gal\u00ed (2015), expanded from the canonical three-equation model",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "algebraic-expansion"
+      },
+      {
+        "block": "price_calvo",
+        "role": "Calvo New Keynesian Phillips curve",
+        "equation": "Gal\u00ed Chapter 3 equation (22)",
+        "source": "Gal\u00ed (2015), nonlinear structure checked against Pfeifer",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3_nonlinear.mod",
+        "status": "direct"
+      }
+    ]
+  },
+  "rank_rotemberg_sticky_prices": {
+    "display_name": "RANK - Rotemberg sticky prices",
+    "description": "Gal\u00ed Chapter 3 representative-agent NK core with Rotemberg price setting and flexible wages.",
+    "mechanism_status": "standard-rotemberg-mechanism-first-order-matched",
+    "calibration": {
+      "profile": "gali-chapter-3-rotemberg",
+      "status": "standard-mechanism-matched-normalization",
+      "sources": [
+        "https://academic.oup.com/restud/article/49/4/517/1538719",
+        "https://crei.cat/wp-content/uploads/users/pages/ch3_slides_june2015%281%29.pdf",
+        "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod"
+      ],
+      "notes": [
+        "The Rotemberg cost is derived to match Gal\u00ed's Calvo slope at first order.",
+        "The Rotemberg and Calvo models share every parameter except the price-setting normalization."
+      ],
+      "declared_values": {
+        "beta": 0.99,
+        "sigma": 1.0,
+        "phi": 5.0,
+        "alpha": 0.25,
+        "epsilon_p": 9.0,
+        "theta_p": 0.75,
+        "phi_pi": 1.5,
+        "phi_y": 0.125,
+        "rho_a": 0.9,
+        "rho_z": 0.5,
+        "a": 0.0,
+        "z": 0.0,
+        "nu": 0.0,
+        "x": 0.0,
+        "pi_p": 0.0,
+        "psi_p": 372.8155339805824
+      }
+    },
+    "cartridge": "rotemberg",
+    "blocks": [
+      "natural_allocation",
+      "output_identity",
+      "taylor_price",
+      "dynamic_is",
+      "price_core_diagnostics",
+      "price_rotemberg"
+    ],
+    "unknowns": [
+      "x",
+      "pi_p"
+    ],
+    "targets": [
+      "is_residual",
+      "price_residual"
+    ],
+    "exogenous": [
+      "a",
+      "z",
+      "nu"
+    ],
+    "steady_state_residuals": {
+      "is_residual": 0.0,
+      "price_residual": 0.0
+    },
+    "reference_shock": "nu",
+    "reference_shock_impact": 0.0025,
+    "unknown_impacts": {
+      "x": -0.0025908507909362974,
+      "pi_p": -0.0008807182556648142
+    },
+    "provenance": [
+      {
+        "block": "natural_allocation",
+        "role": "natural output and real rate",
+        "equation": "Gal\u00ed Chapter 3 equations (20), (24)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      },
+      {
+        "block": "output_identity",
+        "role": "output-gap definition",
+        "equation": "x_t = y_t - y_t^n",
+        "source": "Gal\u00ed (2015), Chapter 3",
+        "url": "https://crei.cat/people/gali/",
+        "status": "algebraic-identity"
+      },
+      {
+        "block": "taylor_price",
+        "role": "price-inflation Taylor rule",
+        "equation": "Gal\u00ed Chapter 3 equation (26)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      },
+      {
+        "block": "dynamic_is",
+        "role": "representative-household Euler equation",
+        "equation": "Gal\u00ed Chapter 3 equation (23)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      },
+      {
+        "block": "price_core_diagnostics",
+        "role": "labor, MRS, MPL, and marginal-cost diagnostics",
+        "equation": "Gal\u00ed Chapter 3 equations (11), (12), and marginal-cost identity",
+        "source": "Gal\u00ed (2015), expanded from the canonical three-equation model",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "algebraic-expansion"
+      },
+      {
+        "block": "price_rotemberg",
+        "role": "Rotemberg New Keynesian Phillips curve",
+        "equation": "first-order PC under quadratic price adjustment",
+        "source": "Rotemberg (1982); SSJ normalization documented locally",
+        "url": "https://academic.oup.com/restud/article/49/4/517/1538719",
+        "status": "derived-normalization"
+      }
+    ]
+  },
+  "rank_union_sticky_wages": {
+    "display_name": "RANK - Union sticky wages",
+    "description": "Flexible-goods-price RANK benchmark with sticky wages set by workers/unions (labor monopoly), as compared by Dennery (2020).",
+    "mechanism_status": "canonical-ehl-sticky-wage-special-case",
+    "calibration": {
+      "profile": "ehl-sticky-wage-flexible-price",
+      "status": "canonical-foundation-with-explicit-policy-closure",
+      "sources": [
+        "https://www.federalreserve.gov/pubs/ifdp/1999/640/ifdp640.pdf",
+        "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content"
+      ],
+      "notes": [
+        "beta, sigma, phi, alpha, theta_w, and the one-third wage markup follow EHL's quarterly benchmark.",
+        "Flexible goods prices select EHL's sticky-wage special case used in Dennery's comparison.",
+        "phi_w=1.5 is a conventional determinate comparison closure, not an EHL or Dennery estimate."
+      ],
+      "declared_values": {
+        "beta": 0.99,
+        "sigma": 1.5,
+        "phi": 1.5,
+        "alpha": 0.3,
+        "theta_w": 0.75,
+        "epsilon_w": 4.0,
+        "eta": 4.0,
+        "phi_w": 1.5,
+        "phi_y_w": 0.0,
+        "r_nat": 0.0,
+        "nu_w": 0.0,
+        "l": 0.0,
+        "pi_w": 0.0
+      }
+    },
+    "cartridge": "monopoly",
+    "blocks": [
+      "wage_output",
+      "taylor_wage",
+      "wage_activity",
+      "labor_demand_monopoly",
+      "wage_pc_monopoly"
+    ],
+    "unknowns": [
+      "l",
+      "pi_w"
+    ],
+    "targets": [
+      "intertemporal_residual",
+      "wage_residual"
+    ],
+    "exogenous": [
+      "r_nat",
+      "nu_w"
+    ],
+    "steady_state_residuals": {
+      "intertemporal_residual": 0.0,
+      "wage_residual": 0.0
+    },
+    "reference_shock": "nu_w",
+    "reference_shock_impact": 0.0025,
+    "unknown_impacts": {
+      "l": -0.003359308182077355,
+      "pi_w": -0.0002324669770977858
+    },
+    "provenance": [
+      {
+        "block": "wage_output",
+        "role": "labor-to-output mapping",
+        "equation": "log-linear production y_t=(1-alpha)l_t",
+        "source": "Dennery (2020), Cobb-Douglas specialization used in footnote 13",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "algebraic-identity"
+      },
+      {
+        "block": "taylor_wage",
+        "role": "wage-inflation Taylor rule",
+        "equation": "Dennery section 2.3 and footnote 12",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      },
+      {
+        "block": "wage_activity",
+        "role": "reduced-form activity gap and slopes",
+        "equation": "Dennery footnote 13 definitions",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "algebraic-identity"
+      },
+      {
+        "block": "labor_demand_monopoly",
+        "role": "intertemporal labor demand",
+        "equation": "Dennery equation (8), footnote 13",
+        "source": "EHL wage-monopoly comparison as written by Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      },
+      {
+        "block": "wage_pc_monopoly",
+        "role": "worker/union wage Phillips curve",
+        "equation": "Dennery footnote 9 and footnote 13",
+        "source": "Erceg\u2013Henderson\u2013Levin (2000) comparison",
+        "url": "https://www.federalreserve.gov/pubs/ifdp/1999/640/ifdp640.pdf",
+        "status": "direct"
+      }
+    ]
+  },
+  "rank_firm_sticky_wages": {
+    "display_name": "RANK - Firm sticky wages",
+    "description": "Flexible-goods-price RANK benchmark with sticky wages set by firms (labor monopsony), as compared by Dennery (2020).",
+    "mechanism_status": "direct-dennery-mechanism",
+    "calibration": {
+      "profile": "dennery-monopsony-eta4",
+      "status": "source-mechanism-empirically-anchored-calibration",
+      "sources": [
+        "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "https://www.federalreserve.gov/pubs/ifdp/1999/640/ifdp640.pdf",
+        "https://www.aeaweb.org/articles?id=10.1257%2Faer.20191521"
+      ],
+      "notes": [
+        "Dennery supplies the Phillips-curve sign and labor-supply closure but no unique numerical calibration.",
+        "The common EHL environment isolates the change in wage setter.",
+        "eta=4 implies a 0.8 markdown, close to Berger-Herkenhoff-Mongey's payroll-weighted 0.78 benchmark.",
+        "phi_w=1.5 is a conventional determinate comparison closure, not a source estimate."
+      ],
+      "declared_values": {
+        "beta": 0.99,
+        "sigma": 1.5,
+        "phi": 1.5,
+        "alpha": 0.3,
+        "theta_w": 0.75,
+        "epsilon_w": 4.0,
+        "eta": 4.0,
+        "phi_w": 1.5,
+        "phi_y_w": 0.0,
+        "r_nat": 0.0,
+        "nu_w": 0.0,
+        "l": 0.0,
+        "pi_w": 0.0
+      }
+    },
+    "cartridge": "monopsony",
+    "blocks": [
+      "wage_output",
+      "taylor_wage",
+      "wage_activity",
+      "labor_supply_monopsony",
+      "wage_pc_monopsony"
+    ],
+    "unknowns": [
+      "l",
+      "pi_w"
+    ],
+    "targets": [
+      "intertemporal_residual",
+      "wage_residual"
+    ],
+    "exogenous": [
+      "r_nat",
+      "nu_w"
+    ],
+    "steady_state_residuals": {
+      "intertemporal_residual": 0.0,
+      "wage_residual": 0.0
+    },
+    "reference_shock": "nu_w",
+    "reference_shock_impact": 0.0025,
+    "unknown_impacts": {
+      "l": 0.0025768294097181957,
+      "pi_w": -0.0005673779427113535
+    },
+    "provenance": [
+      {
+        "block": "wage_output",
+        "role": "labor-to-output mapping",
+        "equation": "log-linear production y_t=(1-alpha)l_t",
+        "source": "Dennery (2020), Cobb-Douglas specialization used in footnote 13",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "algebraic-identity"
+      },
+      {
+        "block": "taylor_wage",
+        "role": "wage-inflation Taylor rule",
+        "equation": "Dennery section 2.3 and footnote 12",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      },
+      {
+        "block": "wage_activity",
+        "role": "reduced-form activity gap and slopes",
+        "equation": "Dennery footnote 13 definitions",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "algebraic-identity"
+      },
+      {
+        "block": "labor_supply_monopsony",
+        "role": "intertemporal labor supply",
+        "equation": "Dennery equation (9)",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      },
+      {
+        "block": "wage_pc_monopsony",
+        "role": "employer wage Phillips curve",
+        "equation": "Dennery equation (7), footnote 13",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      }
+    ]
+  }
+}

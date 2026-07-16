@@ -1,0 +1,519 @@
+{
+  "model": "rank_calvo_sticky_prices",
+  "display_name": "RANK - Calvo sticky prices",
+  "family": "rank_price",
+  "description": "Gal\u00ed Chapter 3 representative-agent NK core with Calvo price setting and flexible wages.",
+  "mechanism_status": "canonical-gali-chapter-3",
+  "calibration": {
+    "profile": "gali-chapter-3-calvo",
+    "status": "canonical-textbook-calibration",
+    "sources": [
+      "https://crei.cat/wp-content/uploads/users/pages/ch3_slides_june2015%281%29.pdf",
+      "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod"
+    ],
+    "notes": [
+      "Calvo probability and the remaining values are Gal\u00ed's Chapter 3 baseline.",
+      "The Rotemberg and Calvo models share every parameter except the price-setting normalization."
+    ],
+    "declared_values": {
+      "beta": 0.99,
+      "sigma": 1.0,
+      "phi": 5.0,
+      "alpha": 0.25,
+      "epsilon_p": 9.0,
+      "theta_p": 0.75,
+      "phi_pi": 1.5,
+      "phi_y": 0.125,
+      "rho_a": 0.9,
+      "rho_z": 0.5,
+      "a": 0.0,
+      "z": 0.0,
+      "nu": 0.0,
+      "x": 0.0,
+      "pi_p": 0.0,
+      "psi_p": 372.8155339805824
+    },
+    "live_parameter_values": {
+      "alpha": 0.25,
+      "beta": 0.99,
+      "epsilon_p": 9.0,
+      "phi": 5.0,
+      "phi_pi": 1.5,
+      "phi_y": 0.125,
+      "psi_p": 372.8155339805824,
+      "rho_a": 0.9,
+      "rho_z": 0.5,
+      "sigma": 1.0,
+      "theta_p": 0.75
+    }
+  },
+  "cartridge": "calvo",
+  "solution": {
+    "unknowns": [
+      "x",
+      "pi_p"
+    ],
+    "targets": [
+      "is_residual",
+      "price_residual"
+    ],
+    "exogenous": [
+      "a",
+      "z",
+      "nu"
+    ]
+  },
+  "blocks": [
+    {
+      "name": "natural_allocation",
+      "inputs": [
+        "a",
+        "z",
+        "sigma",
+        "phi",
+        "alpha",
+        "rho_a",
+        "rho_z"
+      ],
+      "outputs": [
+        "psi_n_ya",
+        "y_nat",
+        "r_nat"
+      ],
+      "parameters": [
+        "sigma",
+        "phi",
+        "alpha",
+        "rho_a",
+        "rho_z"
+      ],
+      "parameter_values": {
+        "sigma": 1.0,
+        "phi": 5.0,
+        "alpha": 0.25,
+        "rho_a": 0.9,
+        "rho_z": 0.5
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "natural_allocation",
+        "role": "natural output and real rate",
+        "equation": "Gal\u00ed Chapter 3 equations (20), (24)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "output_identity",
+      "inputs": [
+        "x",
+        "y_nat"
+      ],
+      "outputs": [
+        "y"
+      ],
+      "parameters": [],
+      "parameter_values": {},
+      "interface_only_inputs": [],
+      "source": {
+        "block": "output_identity",
+        "role": "output-gap definition",
+        "equation": "x_t = y_t - y_t^n",
+        "source": "Gal\u00ed (2015), Chapter 3",
+        "url": "https://crei.cat/people/gali/",
+        "status": "algebraic-identity"
+      }
+    },
+    {
+      "name": "taylor_price",
+      "inputs": [
+        "pi_p",
+        "y",
+        "nu",
+        "phi_pi",
+        "phi_y"
+      ],
+      "outputs": [
+        "i"
+      ],
+      "parameters": [
+        "phi_pi",
+        "phi_y"
+      ],
+      "parameter_values": {
+        "phi_pi": 1.5,
+        "phi_y": 0.125
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "taylor_price",
+        "role": "price-inflation Taylor rule",
+        "equation": "Gal\u00ed Chapter 3 equation (26)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "dynamic_is",
+      "inputs": [
+        "x",
+        "i",
+        "pi_p",
+        "r_nat",
+        "sigma"
+      ],
+      "outputs": [
+        "is_residual"
+      ],
+      "parameters": [
+        "sigma"
+      ],
+      "parameter_values": {
+        "sigma": 1.0
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "dynamic_is",
+        "role": "representative-household Euler equation",
+        "equation": "Gal\u00ed Chapter 3 equation (23)",
+        "source": "Gal\u00ed (2015), checked against Pfeifer's Dynare file",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "price_core_diagnostics",
+      "inputs": [
+        "y",
+        "y_nat",
+        "a",
+        "sigma",
+        "phi",
+        "alpha"
+      ],
+      "outputs": [
+        "c",
+        "n",
+        "mrs",
+        "mpl",
+        "mc_gap",
+        "mc_slope",
+        "mc_identity_error"
+      ],
+      "parameters": [
+        "sigma",
+        "phi",
+        "alpha"
+      ],
+      "parameter_values": {
+        "sigma": 1.0,
+        "phi": 5.0,
+        "alpha": 0.25
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "price_core_diagnostics",
+        "role": "labor, MRS, MPL, and marginal-cost diagnostics",
+        "equation": "Gal\u00ed Chapter 3 equations (11), (12), and marginal-cost identity",
+        "source": "Gal\u00ed (2015), expanded from the canonical three-equation model",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3.mod",
+        "status": "algebraic-expansion"
+      }
+    },
+    {
+      "name": "price_calvo",
+      "inputs": [
+        "pi_p",
+        "mc_gap",
+        "mc_slope",
+        "beta",
+        "theta_p",
+        "alpha",
+        "epsilon_p",
+        "psi_p"
+      ],
+      "outputs": [
+        "omega_p",
+        "lambda_p",
+        "kappa_p",
+        "price_residual"
+      ],
+      "parameters": [
+        "beta",
+        "theta_p",
+        "alpha",
+        "epsilon_p",
+        "psi_p"
+      ],
+      "parameter_values": {
+        "beta": 0.99,
+        "theta_p": 0.75,
+        "alpha": 0.25,
+        "epsilon_p": 9.0,
+        "psi_p": 372.8155339805824
+      },
+      "interface_only_inputs": [
+        "psi_p"
+      ],
+      "source": {
+        "block": "price_calvo",
+        "role": "Calvo New Keynesian Phillips curve",
+        "equation": "Gal\u00ed Chapter 3 equation (22)",
+        "source": "Gal\u00ed (2015), nonlinear structure checked against Pfeifer",
+        "url": "https://github.com/JohannesPfeifer/DSGE_mod/blob/26c21f79e4c6a6b19b18e6330edc5b23489907a4/Gali_2015/Gali_2015_chapter_3_nonlinear.mod",
+        "status": "direct"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "unknown:x",
+      "label": "Output gap (x)",
+      "kind": "unknown",
+      "subtitle": "GE unknown",
+      "level": 0
+    },
+    {
+      "id": "unknown:pi_p",
+      "label": "Price inflation (pi_p)",
+      "kind": "unknown",
+      "subtitle": "GE unknown",
+      "level": 0
+    },
+    {
+      "id": "shock:a",
+      "label": "a",
+      "kind": "shock",
+      "subtitle": "exogenous sequence",
+      "level": 0
+    },
+    {
+      "id": "shock:z",
+      "label": "z",
+      "kind": "shock",
+      "subtitle": "exogenous sequence",
+      "level": 0
+    },
+    {
+      "id": "shock:nu",
+      "label": "nu",
+      "kind": "shock",
+      "subtitle": "exogenous sequence",
+      "level": 0
+    },
+    {
+      "id": "block:natural_allocation",
+      "label": "Natural allocation",
+      "kind": "block",
+      "subtitle": "outputs psi_n_ya, y*, r*",
+      "code_name": "natural_allocation",
+      "level": 1
+    },
+    {
+      "id": "block:output_identity",
+      "label": "Output",
+      "kind": "block",
+      "subtitle": "outputs y",
+      "code_name": "output_identity",
+      "level": 2
+    },
+    {
+      "id": "block:taylor_price",
+      "label": "Policy rule",
+      "kind": "block",
+      "subtitle": "outputs i",
+      "code_name": "taylor_price",
+      "level": 3
+    },
+    {
+      "id": "block:dynamic_is",
+      "label": "Dynamic IS",
+      "kind": "block",
+      "subtitle": "outputs IS residual",
+      "code_name": "dynamic_is",
+      "level": 4
+    },
+    {
+      "id": "block:price_core_diagnostics",
+      "label": "Price diagnostics",
+      "kind": "block",
+      "subtitle": "outputs c, n, mrs, mpl, mc_gap, mc_slope, mc_identity_error",
+      "code_name": "price_core_diagnostics",
+      "level": 3
+    },
+    {
+      "id": "block:price_calvo",
+      "label": "Calvo prices",
+      "kind": "block",
+      "subtitle": "outputs omega_p, lambda_p, kappa_p, price residual",
+      "code_name": "price_calvo",
+      "level": 4
+    },
+    {
+      "id": "target:is_residual",
+      "label": "IS equilibrium",
+      "kind": "target",
+      "subtitle": "zero target",
+      "code_name": "is_residual",
+      "level": 5
+    },
+    {
+      "id": "target:price_residual",
+      "label": "Price equilibrium",
+      "kind": "target",
+      "subtitle": "zero target",
+      "code_name": "price_residual",
+      "level": 5
+    }
+  ],
+  "edges": [
+    {
+      "from": "shock:a",
+      "to": "block:natural_allocation",
+      "variables": [
+        "a"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "shock:z",
+      "to": "block:natural_allocation",
+      "variables": [
+        "z"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:x",
+      "to": "block:output_identity",
+      "variables": [
+        "x"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:natural_allocation",
+      "to": "block:output_identity",
+      "variables": [
+        "y_nat"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:pi_p",
+      "to": "block:taylor_price",
+      "variables": [
+        "pi_p"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:output_identity",
+      "to": "block:taylor_price",
+      "variables": [
+        "y"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "shock:nu",
+      "to": "block:taylor_price",
+      "variables": [
+        "nu"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:x",
+      "to": "block:dynamic_is",
+      "variables": [
+        "x"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:taylor_price",
+      "to": "block:dynamic_is",
+      "variables": [
+        "i"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:pi_p",
+      "to": "block:dynamic_is",
+      "variables": [
+        "pi_p"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:natural_allocation",
+      "to": "block:dynamic_is",
+      "variables": [
+        "r_nat"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:output_identity",
+      "to": "block:price_core_diagnostics",
+      "variables": [
+        "y"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:natural_allocation",
+      "to": "block:price_core_diagnostics",
+      "variables": [
+        "y_nat"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "shock:a",
+      "to": "block:price_core_diagnostics",
+      "variables": [
+        "a"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:pi_p",
+      "to": "block:price_calvo",
+      "variables": [
+        "pi_p"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:price_core_diagnostics",
+      "to": "block:price_calvo",
+      "variables": [
+        "mc_gap",
+        "mc_slope"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:dynamic_is",
+      "to": "target:is_residual",
+      "variables": [
+        "is_residual"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:price_calvo",
+      "to": "target:price_residual",
+      "variables": [
+        "price_residual"
+      ],
+      "interface_only": false
+    }
+  ],
+  "note": "Calibration parameters and values are listed per block in JSON and omitted from visual arrows. Dashed edges are socket-only inputs retained for exact exchangeability."
+}

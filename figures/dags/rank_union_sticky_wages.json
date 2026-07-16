@@ -1,0 +1,438 @@
+{
+  "model": "rank_union_sticky_wages",
+  "display_name": "RANK - Union sticky wages",
+  "family": "rank_wage",
+  "description": "Flexible-goods-price RANK benchmark with sticky wages set by workers/unions (labor monopoly), as compared by Dennery (2020).",
+  "mechanism_status": "canonical-ehl-sticky-wage-special-case",
+  "calibration": {
+    "profile": "ehl-sticky-wage-flexible-price",
+    "status": "canonical-foundation-with-explicit-policy-closure",
+    "sources": [
+      "https://www.federalreserve.gov/pubs/ifdp/1999/640/ifdp640.pdf",
+      "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content"
+    ],
+    "notes": [
+      "beta, sigma, phi, alpha, theta_w, and the one-third wage markup follow EHL's quarterly benchmark.",
+      "Flexible goods prices select EHL's sticky-wage special case used in Dennery's comparison.",
+      "phi_w=1.5 is a conventional determinate comparison closure, not an EHL or Dennery estimate."
+    ],
+    "declared_values": {
+      "beta": 0.99,
+      "sigma": 1.5,
+      "phi": 1.5,
+      "alpha": 0.3,
+      "theta_w": 0.75,
+      "epsilon_w": 4.0,
+      "eta": 4.0,
+      "phi_w": 1.5,
+      "phi_y_w": 0.0,
+      "r_nat": 0.0,
+      "nu_w": 0.0,
+      "l": 0.0,
+      "pi_w": 0.0
+    },
+    "live_parameter_values": {
+      "alpha": 0.3,
+      "beta": 0.99,
+      "epsilon_w": 4.0,
+      "eta": 4.0,
+      "phi": 1.5,
+      "phi_w": 1.5,
+      "phi_y_w": 0.0,
+      "sigma": 1.5,
+      "theta_w": 0.75
+    }
+  },
+  "cartridge": "monopoly",
+  "solution": {
+    "unknowns": [
+      "l",
+      "pi_w"
+    ],
+    "targets": [
+      "intertemporal_residual",
+      "wage_residual"
+    ],
+    "exogenous": [
+      "r_nat",
+      "nu_w"
+    ]
+  },
+  "blocks": [
+    {
+      "name": "wage_output",
+      "inputs": [
+        "l",
+        "alpha"
+      ],
+      "outputs": [
+        "y"
+      ],
+      "parameters": [
+        "alpha"
+      ],
+      "parameter_values": {
+        "alpha": 0.3
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "wage_output",
+        "role": "labor-to-output mapping",
+        "equation": "log-linear production y_t=(1-alpha)l_t",
+        "source": "Dennery (2020), Cobb-Douglas specialization used in footnote 13",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "algebraic-identity"
+      }
+    },
+    {
+      "name": "taylor_wage",
+      "inputs": [
+        "pi_w",
+        "y",
+        "nu_w",
+        "phi_w",
+        "phi_y_w"
+      ],
+      "outputs": [
+        "i"
+      ],
+      "parameters": [
+        "phi_w",
+        "phi_y_w"
+      ],
+      "parameter_values": {
+        "phi_w": 1.5,
+        "phi_y_w": 0.0
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "taylor_wage",
+        "role": "wage-inflation Taylor rule",
+        "equation": "Dennery section 2.3 and footnote 12",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "wage_activity",
+      "inputs": [
+        "l",
+        "sigma",
+        "phi",
+        "alpha"
+      ],
+      "outputs": [
+        "activity_coefficient",
+        "activity_gap",
+        "labor_demand_coefficient"
+      ],
+      "parameters": [
+        "sigma",
+        "phi",
+        "alpha"
+      ],
+      "parameter_values": {
+        "sigma": 1.5,
+        "phi": 1.5,
+        "alpha": 0.3
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "wage_activity",
+        "role": "reduced-form activity gap and slopes",
+        "equation": "Dennery footnote 13 definitions",
+        "source": "Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "algebraic-identity"
+      }
+    },
+    {
+      "name": "labor_demand_monopoly",
+      "inputs": [
+        "l",
+        "i",
+        "pi_w",
+        "r_nat",
+        "labor_demand_coefficient",
+        "phi"
+      ],
+      "outputs": [
+        "intertemporal_residual"
+      ],
+      "parameters": [
+        "phi"
+      ],
+      "parameter_values": {
+        "phi": 1.5
+      },
+      "interface_only_inputs": [
+        "phi"
+      ],
+      "source": {
+        "block": "labor_demand_monopoly",
+        "role": "intertemporal labor demand",
+        "equation": "Dennery equation (8), footnote 13",
+        "source": "EHL wage-monopoly comparison as written by Dennery (2020)",
+        "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "wage_pc_monopoly",
+      "inputs": [
+        "pi_w",
+        "l",
+        "activity_coefficient",
+        "beta",
+        "theta_w",
+        "phi",
+        "epsilon_w",
+        "alpha",
+        "eta"
+      ],
+      "outputs": [
+        "lambda_w",
+        "kappa_w",
+        "wage_residual"
+      ],
+      "parameters": [
+        "beta",
+        "theta_w",
+        "phi",
+        "epsilon_w",
+        "alpha",
+        "eta"
+      ],
+      "parameter_values": {
+        "beta": 0.99,
+        "theta_w": 0.75,
+        "phi": 1.5,
+        "epsilon_w": 4.0,
+        "alpha": 0.3,
+        "eta": 4.0
+      },
+      "interface_only_inputs": [
+        "alpha",
+        "eta"
+      ],
+      "source": {
+        "block": "wage_pc_monopoly",
+        "role": "worker/union wage Phillips curve",
+        "equation": "Dennery footnote 9 and footnote 13",
+        "source": "Erceg\u2013Henderson\u2013Levin (2000) comparison",
+        "url": "https://www.federalreserve.gov/pubs/ifdp/1999/640/ifdp640.pdf",
+        "status": "direct"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "unknown:l",
+      "label": "Labor gap (l)",
+      "kind": "unknown",
+      "subtitle": "GE unknown",
+      "level": 0
+    },
+    {
+      "id": "unknown:pi_w",
+      "label": "Wage inflation (pi_w)",
+      "kind": "unknown",
+      "subtitle": "GE unknown",
+      "level": 0
+    },
+    {
+      "id": "shock:r_nat",
+      "label": "r_nat",
+      "kind": "shock",
+      "subtitle": "exogenous sequence",
+      "level": 0
+    },
+    {
+      "id": "shock:nu_w",
+      "label": "nu_w",
+      "kind": "shock",
+      "subtitle": "exogenous sequence",
+      "level": 0
+    },
+    {
+      "id": "block:wage_output",
+      "label": "Output",
+      "kind": "block",
+      "subtitle": "outputs y",
+      "code_name": "wage_output",
+      "level": 1
+    },
+    {
+      "id": "block:taylor_wage",
+      "label": "Wage policy rule",
+      "kind": "block",
+      "subtitle": "outputs i",
+      "code_name": "taylor_wage",
+      "level": 2
+    },
+    {
+      "id": "block:wage_activity",
+      "label": "Wage activity",
+      "kind": "block",
+      "subtitle": "outputs activity_coefficient, activity_gap, labor_demand_coefficient",
+      "code_name": "wage_activity",
+      "level": 1
+    },
+    {
+      "id": "block:labor_demand_monopoly",
+      "label": "Labor demand",
+      "kind": "block",
+      "subtitle": "outputs intertemporal residual",
+      "code_name": "labor_demand_monopoly",
+      "level": 3
+    },
+    {
+      "id": "block:wage_pc_monopoly",
+      "label": "Union wage curve",
+      "kind": "block",
+      "subtitle": "outputs lambda_w, kappa_w, wage residual",
+      "code_name": "wage_pc_monopoly",
+      "level": 2
+    },
+    {
+      "id": "target:intertemporal_residual",
+      "label": "Intertemporal equilibrium",
+      "kind": "target",
+      "subtitle": "zero target",
+      "code_name": "intertemporal_residual",
+      "level": 4
+    },
+    {
+      "id": "target:wage_residual",
+      "label": "Wage equilibrium",
+      "kind": "target",
+      "subtitle": "zero target",
+      "code_name": "wage_residual",
+      "level": 3
+    }
+  ],
+  "edges": [
+    {
+      "from": "unknown:l",
+      "to": "block:wage_output",
+      "variables": [
+        "l"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:pi_w",
+      "to": "block:taylor_wage",
+      "variables": [
+        "pi_w"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:wage_output",
+      "to": "block:taylor_wage",
+      "variables": [
+        "y"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "shock:nu_w",
+      "to": "block:taylor_wage",
+      "variables": [
+        "nu_w"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:l",
+      "to": "block:wage_activity",
+      "variables": [
+        "l"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:l",
+      "to": "block:labor_demand_monopoly",
+      "variables": [
+        "l"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:taylor_wage",
+      "to": "block:labor_demand_monopoly",
+      "variables": [
+        "i"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:pi_w",
+      "to": "block:labor_demand_monopoly",
+      "variables": [
+        "pi_w"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "shock:r_nat",
+      "to": "block:labor_demand_monopoly",
+      "variables": [
+        "r_nat"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:wage_activity",
+      "to": "block:labor_demand_monopoly",
+      "variables": [
+        "labor_demand_coefficient"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:pi_w",
+      "to": "block:wage_pc_monopoly",
+      "variables": [
+        "pi_w"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:l",
+      "to": "block:wage_pc_monopoly",
+      "variables": [
+        "l"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:wage_activity",
+      "to": "block:wage_pc_monopoly",
+      "variables": [
+        "activity_coefficient"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:labor_demand_monopoly",
+      "to": "target:intertemporal_residual",
+      "variables": [
+        "intertemporal_residual"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:wage_pc_monopoly",
+      "to": "target:wage_residual",
+      "variables": [
+        "wage_residual"
+      ],
+      "interface_only": false
+    }
+  ],
+  "note": "Calibration parameters and values are listed per block in JSON and omitted from visual arrows. Dashed edges are socket-only inputs retained for exact exchangeability."
+}

@@ -1,0 +1,40 @@
+flowchart LR
+    unknown_x(["Output gap (x)<br/><small>GE unknown</small>"])
+    unknown_pi_p(["Price inflation (pi_p)<br/><small>GE unknown</small>"])
+    shock_a(["a<br/><small>exogenous sequence</small>"])
+    shock_z(["z<br/><small>exogenous sequence</small>"])
+    shock_nu(["nu<br/><small>exogenous sequence</small>"])
+    block_natural_allocation["Natural allocation<br/><small>outputs psi_n_ya, y*, r*</small>"]
+    block_output_identity["Output<br/><small>outputs y</small>"]
+    block_taylor_price["Policy rule<br/><small>outputs i</small>"]
+    block_dynamic_is["Dynamic IS<br/><small>outputs IS residual</small>"]
+    block_price_core_diagnostics["Price diagnostics<br/><small>outputs c, n, mrs, mpl, mc_gap, mc_slope, mc_identity_error</small>"]
+    block_price_rotemberg["Rotemberg prices<br/><small>outputs omega_p, lambda_p, kappa_p, price residual</small>"]
+    target_is_residual{"IS equilibrium<br/><small>zero target</small>"}
+    target_price_residual{"Price equilibrium<br/><small>zero target</small>"}
+    shock_a -->|a| block_natural_allocation
+    shock_z -->|z| block_natural_allocation
+    unknown_x -->|x| block_output_identity
+    block_natural_allocation -->|y_nat| block_output_identity
+    unknown_pi_p -->|pi_p| block_taylor_price
+    block_output_identity -->|y| block_taylor_price
+    shock_nu -->|nu| block_taylor_price
+    unknown_x -->|x| block_dynamic_is
+    block_taylor_price -->|i| block_dynamic_is
+    unknown_pi_p -->|pi_p| block_dynamic_is
+    block_natural_allocation -->|r_nat| block_dynamic_is
+    block_output_identity -->|y| block_price_core_diagnostics
+    block_natural_allocation -->|y_nat| block_price_core_diagnostics
+    shock_a -->|a| block_price_core_diagnostics
+    unknown_pi_p -->|pi_p| block_price_rotemberg
+    block_price_core_diagnostics -->|mc_gap, mc_slope| block_price_rotemberg
+    block_dynamic_is -->|is_residual| target_is_residual
+    block_price_rotemberg -->|price_residual| target_price_residual
+    classDef unknown fill:#EAF4FA,stroke:#0072BD,color:#000000;
+    classDef shock fill:#FCEFE8,stroke:#D95319,color:#000000;
+    classDef block fill:#FFFFFF,stroke:#000000,color:#000000;
+    classDef target fill:#F2F2F2,stroke:#000000,color:#000000;
+    class unknown_x,unknown_pi_p unknown;
+    class shock_a,shock_z,shock_nu shock;
+    class block_natural_allocation,block_output_identity,block_taylor_price,block_dynamic_is,block_price_core_diagnostics,block_price_rotemberg block;
+    class target_is_residual,target_price_residual target;

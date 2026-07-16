@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675" role="img" aria-labelledby="title desc">
+<title id="title">RANK output under union- and firm-set sticky wages</title>
+<desc id="desc">RANK output under union- and firm-set sticky wages. Output is in percent deviations; the figure uses Helvetica, open axes, horizontal guides, and MATLAB colors.</desc>
+<defs><clipPath id="plot-clip"><rect x="132" y="38" width="690" height="520"/></clipPath></defs>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<line x1="132.0" y1="558.0" x2="822.0" y2="558.0" stroke="#000000" stroke-opacity="0.16" stroke-width="1.5"/>
+<line x1="124.0" y1="558.0" x2="132.0" y2="558.0" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="569.0" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">-0.3</text>
+<line x1="132.0" y1="471.3" x2="822.0" y2="471.3" stroke="#000000" stroke-opacity="0.16" stroke-width="1.5"/>
+<line x1="124.0" y1="471.3" x2="132.0" y2="471.3" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="482.3" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">-0.2</text>
+<line x1="132.0" y1="384.7" x2="822.0" y2="384.7" stroke="#000000" stroke-opacity="0.16" stroke-width="1.5"/>
+<line x1="124.0" y1="384.7" x2="132.0" y2="384.7" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="395.7" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">-0.1</text>
+<line x1="132.0" y1="298.0" x2="822.0" y2="298.0" stroke="#000000" stroke-opacity="0.32" stroke-width="1.9"/>
+<line x1="124.0" y1="298.0" x2="132.0" y2="298.0" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="309.0" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">0.0</text>
+<line x1="132.0" y1="211.3" x2="822.0" y2="211.3" stroke="#000000" stroke-opacity="0.16" stroke-width="1.5"/>
+<line x1="124.0" y1="211.3" x2="132.0" y2="211.3" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="222.3" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">0.1</text>
+<line x1="132.0" y1="124.7" x2="822.0" y2="124.7" stroke="#000000" stroke-opacity="0.16" stroke-width="1.5"/>
+<line x1="124.0" y1="124.7" x2="132.0" y2="124.7" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="135.7" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">0.2</text>
+<line x1="132.0" y1="38.0" x2="822.0" y2="38.0" stroke="#000000" stroke-opacity="0.16" stroke-width="1.5"/>
+<line x1="124.0" y1="38.0" x2="132.0" y2="38.0" stroke="#000000" stroke-width="1.8"/>
+<text x="115.0" y="49.0" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">0.3</text>
+<line x1="132.0" y1="558.0" x2="132.0" y2="566.0" stroke="#000000" stroke-width="1.8"/>
+<text x="132.0" y="606.0" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">0</text>
+<line x1="304.5" y1="558.0" x2="304.5" y2="566.0" stroke="#000000" stroke-width="1.8"/>
+<text x="304.5" y="606.0" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">5</text>
+<line x1="477.0" y1="558.0" x2="477.0" y2="566.0" stroke="#000000" stroke-width="1.8"/>
+<text x="477.0" y="606.0" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">10</text>
+<line x1="649.5" y1="558.0" x2="649.5" y2="566.0" stroke="#000000" stroke-width="1.8"/>
+<text x="649.5" y="606.0" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">15</text>
+<line x1="822.0" y1="558.0" x2="822.0" y2="566.0" stroke="#000000" stroke-width="1.8"/>
+<text x="822.0" y="606.0" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="34" fill="#000000">20</text>
+<path d="M 132.00 501.80 L 166.50 399.90 L 201.00 348.95 L 235.50 323.47 L 270.00 310.74 L 304.50 304.37 L 339.00 301.18 L 373.50 299.59 L 408.00 298.80 L 442.50 298.40 L 477.00 298.20 L 511.50 298.10 L 546.00 298.05 L 580.50 298.02 L 615.00 298.01 L 649.50 298.01 L 684.00 298.00 L 718.50 298.00 L 753.00 298.00 L 787.50 298.00 L 822.00 298.00" fill="none" stroke="#0072BD" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="butt" clip-path="url(#plot-clip)"/>
+<path d="M 132.00 141.67 L 166.50 219.84 L 201.00 258.92 L 235.50 278.46 L 270.00 288.23 L 304.50 293.11 L 339.00 295.56 L 373.50 296.78 L 408.00 297.39 L 442.50 297.69 L 477.00 297.85 L 511.50 297.92 L 546.00 297.96 L 580.50 297.98 L 615.00 297.99 L 649.50 298.00 L 684.00 298.00 L 718.50 298.00 L 753.00 298.00 L 787.50 298.00 L 822.00 298.00" fill="none" stroke="#D95319" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="butt" stroke-dasharray="9 6" clip-path="url(#plot-clip)"/>
+<line x1="132.0" y1="38.0" x2="132.0" y2="558.0" stroke="#000000" stroke-width="1.8"/>
+<line x1="132.0" y1="558.0" x2="822.0" y2="558.0" stroke="#000000" stroke-width="1.8"/>
+<line x1="526.0" y1="93.0" x2="598.0" y2="93.0" stroke="#0072BD" stroke-width="5.5"/>
+<text x="618.0" y="104.0" font-family="Helvetica,Arial,sans-serif" font-size="31" fill="#000000">Union wages</text>
+<line x1="526.0" y1="145.0" x2="598.0" y2="145.0" stroke="#D95319" stroke-width="5.5" stroke-dasharray="9 6"/>
+<text x="618.0" y="156.0" font-family="Helvetica,Arial,sans-serif" font-size="31" fill="#000000">Firm wages</text>
+<text x="477.0" y="654" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="38" fill="#000000">Quarter</text>
+<text x="42" y="298.0" transform="rotate(-90 42 298.0)" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="38" fill="#000000">% change in output</text>
+</svg>

@@ -1,0 +1,320 @@
+{
+  "model": "rbc",
+  "display_name": "RBC",
+  "family": "rbc",
+  "description": "Canonical competitive RBC model from the official SSJ example.",
+  "mechanism_status": "canonical-equations-source-reproduction",
+  "calibration": {
+    "profile": "official-ssj-rbc-reproduction",
+    "status": "source-reproduction",
+    "sources": [
+      "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb"
+    ],
+    "notes": [
+      "Equations and numerical normalization reproduce the official SSJ RBC notebook.",
+      "Gal\u00ed notation: sigma is inverse EIS and phi is inverse Frisch.",
+      "alpha=0.11 is the notebook normalization, not a universal RBC calibration."
+    ],
+    "declared_values": {
+      "sigma": 1.0,
+      "phi": 1.0,
+      "delta": 0.025,
+      "alpha": 0.11,
+      "L": 1.0
+    },
+    "live_parameter_values": {
+      "alpha": 0.11,
+      "beta": 0.9900990099009901,
+      "chi": 0.9658914728682169,
+      "delta": 0.025,
+      "phi": 1.0,
+      "sigma": 1.0
+    }
+  },
+  "cartridge": null,
+  "solution": {
+    "unknowns": [
+      "K",
+      "L"
+    ],
+    "targets": [
+      "goods_mkt",
+      "euler"
+    ],
+    "exogenous": [
+      "Z"
+    ]
+  },
+  "blocks": [
+    {
+      "name": "rbc_firm",
+      "inputs": [
+        "K",
+        "L",
+        "Z",
+        "alpha",
+        "delta"
+      ],
+      "outputs": [
+        "r",
+        "w",
+        "Y"
+      ],
+      "parameters": [
+        "alpha",
+        "delta"
+      ],
+      "parameter_values": {
+        "alpha": 0.11,
+        "delta": 0.025
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "rbc_firm",
+        "role": "production and factor prices",
+        "equation": "official SSJ RBC firm block",
+        "source": "Auclert et al. sequence-jacobian example",
+        "url": "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "rbc_household",
+      "inputs": [
+        "K",
+        "L",
+        "w",
+        "sigma",
+        "phi",
+        "chi",
+        "delta"
+      ],
+      "outputs": [
+        "C",
+        "I"
+      ],
+      "parameters": [
+        "sigma",
+        "phi",
+        "chi",
+        "delta"
+      ],
+      "parameter_values": {
+        "sigma": 1.0,
+        "phi": 1.0,
+        "chi": 0.9658914728682169,
+        "delta": 0.025
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "rbc_household",
+        "role": "labor supply and capital accumulation",
+        "equation": "official SSJ RBC household block",
+        "source": "Auclert et al. sequence-jacobian example",
+        "url": "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb",
+        "status": "direct"
+      }
+    },
+    {
+      "name": "rbc_markets",
+      "inputs": [
+        "r",
+        "C",
+        "Y",
+        "I",
+        "K",
+        "L",
+        "w",
+        "sigma",
+        "beta"
+      ],
+      "outputs": [
+        "goods_mkt",
+        "euler",
+        "walras"
+      ],
+      "parameters": [
+        "sigma",
+        "beta"
+      ],
+      "parameter_values": {
+        "sigma": 1.0,
+        "beta": 0.9900990099009901
+      },
+      "interface_only_inputs": [],
+      "source": {
+        "block": "rbc_markets",
+        "role": "Euler equation and clearing",
+        "equation": "official SSJ RBC market block",
+        "source": "Auclert et al. sequence-jacobian example",
+        "url": "https://github.com/shade-econ/sequence-jacobian/blob/eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9/notebooks/rbc.ipynb",
+        "status": "direct"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "unknown:K",
+      "label": "Capital (K)",
+      "kind": "unknown",
+      "subtitle": "GE unknown",
+      "level": 0
+    },
+    {
+      "id": "unknown:L",
+      "label": "Labor (L)",
+      "kind": "unknown",
+      "subtitle": "GE unknown",
+      "level": 0
+    },
+    {
+      "id": "shock:Z",
+      "label": "Productivity (Z)",
+      "kind": "shock",
+      "subtitle": "exogenous sequence",
+      "level": 0
+    },
+    {
+      "id": "block:rbc_firm",
+      "label": "Production",
+      "kind": "block",
+      "subtitle": "outputs r, w, Y",
+      "code_name": "rbc_firm",
+      "level": 1
+    },
+    {
+      "id": "block:rbc_household",
+      "label": "Household",
+      "kind": "block",
+      "subtitle": "outputs C, I",
+      "code_name": "rbc_household",
+      "level": 2
+    },
+    {
+      "id": "block:rbc_markets",
+      "label": "Market clearing",
+      "kind": "block",
+      "subtitle": "outputs goods residual, Euler residual, walras",
+      "code_name": "rbc_markets",
+      "level": 3
+    },
+    {
+      "id": "target:goods_mkt",
+      "label": "Goods market",
+      "kind": "target",
+      "subtitle": "zero target",
+      "code_name": "goods_mkt",
+      "level": 4
+    },
+    {
+      "id": "target:euler",
+      "label": "Euler equation",
+      "kind": "target",
+      "subtitle": "zero target",
+      "code_name": "euler",
+      "level": 4
+    }
+  ],
+  "edges": [
+    {
+      "from": "unknown:K",
+      "to": "block:rbc_firm",
+      "variables": [
+        "K"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:L",
+      "to": "block:rbc_firm",
+      "variables": [
+        "L"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "shock:Z",
+      "to": "block:rbc_firm",
+      "variables": [
+        "Z"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:K",
+      "to": "block:rbc_household",
+      "variables": [
+        "K"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:L",
+      "to": "block:rbc_household",
+      "variables": [
+        "L"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:rbc_firm",
+      "to": "block:rbc_household",
+      "variables": [
+        "w"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:rbc_firm",
+      "to": "block:rbc_markets",
+      "variables": [
+        "r",
+        "Y",
+        "w"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:rbc_household",
+      "to": "block:rbc_markets",
+      "variables": [
+        "C",
+        "I"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:K",
+      "to": "block:rbc_markets",
+      "variables": [
+        "K"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "unknown:L",
+      "to": "block:rbc_markets",
+      "variables": [
+        "L"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:rbc_markets",
+      "to": "target:goods_mkt",
+      "variables": [
+        "goods_mkt"
+      ],
+      "interface_only": false
+    },
+    {
+      "from": "block:rbc_markets",
+      "to": "target:euler",
+      "variables": [
+        "euler"
+      ],
+      "interface_only": false
+    }
+  ],
+  "note": "Calibration parameters and values are listed per block in JSON and omitted from visual arrows. Dashed edges are socket-only inputs retained for exact exchangeability."
+}

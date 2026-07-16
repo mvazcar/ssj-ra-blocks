@@ -1,0 +1,29 @@
+flowchart LR
+    unknown_K(["Capital (K)<br/><small>GE unknown</small>"])
+    unknown_L(["Labor (L)<br/><small>GE unknown</small>"])
+    shock_Z(["Productivity (Z)<br/><small>exogenous sequence</small>"])
+    block_rbc_firm["Production<br/><small>outputs r, w, Y</small>"]
+    block_rbc_household["Household<br/><small>outputs C, I</small>"]
+    block_rbc_markets["Market clearing<br/><small>outputs goods residual, Euler residual, walras</small>"]
+    target_goods_mkt{"Goods market<br/><small>zero target</small>"}
+    target_euler{"Euler equation<br/><small>zero target</small>"}
+    unknown_K -->|K| block_rbc_firm
+    unknown_L -->|L| block_rbc_firm
+    shock_Z -->|Z| block_rbc_firm
+    unknown_K -->|K| block_rbc_household
+    unknown_L -->|L| block_rbc_household
+    block_rbc_firm -->|w| block_rbc_household
+    block_rbc_firm -->|r, Y, w| block_rbc_markets
+    block_rbc_household -->|C, I| block_rbc_markets
+    unknown_K -->|K| block_rbc_markets
+    unknown_L -->|L| block_rbc_markets
+    block_rbc_markets -->|goods_mkt| target_goods_mkt
+    block_rbc_markets -->|euler| target_euler
+    classDef unknown fill:#EAF4FA,stroke:#0072BD,color:#000000;
+    classDef shock fill:#FCEFE8,stroke:#D95319,color:#000000;
+    classDef block fill:#FFFFFF,stroke:#000000,color:#000000;
+    classDef target fill:#F2F2F2,stroke:#000000,color:#000000;
+    class unknown_K,unknown_L unknown;
+    class shock_Z shock;
+    class block_rbc_firm,block_rbc_household,block_rbc_markets block;
+    class target_goods_mkt,target_euler target;

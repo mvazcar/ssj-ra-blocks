@@ -1,0 +1,35 @@
+flowchart LR
+    unknown_l(["Labor gap (l)<br/><small>GE unknown</small>"])
+    unknown_pi_w(["Wage inflation (pi_w)<br/><small>GE unknown</small>"])
+    shock_r_nat(["r_nat<br/><small>exogenous sequence</small>"])
+    shock_nu_w(["nu_w<br/><small>exogenous sequence</small>"])
+    block_wage_output["Output<br/><small>outputs y</small>"]
+    block_taylor_wage["Wage policy rule<br/><small>outputs i</small>"]
+    block_wage_activity["Wage activity<br/><small>outputs activity_coefficient, activity_gap, labor_demand_coefficient</small>"]
+    block_labor_demand_monopoly["Labor demand<br/><small>outputs intertemporal residual</small>"]
+    block_wage_pc_monopoly["Union wage curve<br/><small>outputs lambda_w, kappa_w, wage residual</small>"]
+    target_intertemporal_residual{"Intertemporal equilibrium<br/><small>zero target</small>"}
+    target_wage_residual{"Wage equilibrium<br/><small>zero target</small>"}
+    unknown_l -->|l| block_wage_output
+    unknown_pi_w -->|pi_w| block_taylor_wage
+    block_wage_output -->|y| block_taylor_wage
+    shock_nu_w -->|nu_w| block_taylor_wage
+    unknown_l -->|l| block_wage_activity
+    unknown_l -->|l| block_labor_demand_monopoly
+    block_taylor_wage -->|i| block_labor_demand_monopoly
+    unknown_pi_w -->|pi_w| block_labor_demand_monopoly
+    shock_r_nat -->|r_nat| block_labor_demand_monopoly
+    block_wage_activity -->|labor_demand_coefficient| block_labor_demand_monopoly
+    unknown_pi_w -->|pi_w| block_wage_pc_monopoly
+    unknown_l -->|l| block_wage_pc_monopoly
+    block_wage_activity -->|activity_coefficient| block_wage_pc_monopoly
+    block_labor_demand_monopoly -->|intertemporal_residual| target_intertemporal_residual
+    block_wage_pc_monopoly -->|wage_residual| target_wage_residual
+    classDef unknown fill:#EAF4FA,stroke:#0072BD,color:#000000;
+    classDef shock fill:#FCEFE8,stroke:#D95319,color:#000000;
+    classDef block fill:#FFFFFF,stroke:#000000,color:#000000;
+    classDef target fill:#F2F2F2,stroke:#000000,color:#000000;
+    class unknown_l,unknown_pi_w unknown;
+    class shock_r_nat,shock_nu_w shock;
+    class block_wage_output,block_taylor_wage,block_wage_activity,block_labor_demand_monopoly,block_wage_pc_monopoly block;
+    class target_intertemporal_residual,target_wage_residual target;

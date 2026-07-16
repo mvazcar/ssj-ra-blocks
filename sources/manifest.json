@@ -1,0 +1,42 @@
+{
+  "downloaded_at": "2026-07-16",
+  "repositories": [
+    {
+      "name": "sequence-jacobian",
+      "url": "https://github.com/shade-econ/sequence-jacobian.git",
+      "commit": "eb4ac4c3157357a4cacbea4b5a7a281f5b48cab9"
+    },
+    {
+      "name": "annual-review",
+      "url": "https://github.com/shade-econ/annual-review.git",
+      "commit": "80ef0c1ef5e739aa8cec3b57e14304a3ece958b5"
+    },
+    {
+      "name": "DSGE_mod",
+      "url": "https://github.com/JohannesPfeifer/DSGE_mod.git",
+      "commit": "26c21f79e4c6a6b19b18e6330edc5b23489907a4"
+    }
+  ],
+  "files": [
+    {
+      "name": "gali_ch3_slides.pdf",
+      "url": "https://crei.cat/wp-content/uploads/users/pages/ch3_slides_june2015%281%29.pdf",
+      "sha256": "6FA9EB4C8CE9B219E58DCAF3A08C7B5ADB6F439CD9DD33755725BFBCDD09FAA7"
+    },
+    {
+      "name": "gali_ch3_source.zip",
+      "url": "https://crei.cat/wp-content/uploads/2016/07/ch3_slides.tex_.zip",
+      "sha256": "8506B91448F27075DA0BA46EC2881C43FE6F6D2C1B5BBDF90C7A6C2EC20FC278"
+    },
+    {
+      "name": "dennery_2020.pdf",
+      "url": "https://infoscience.epfl.ch/server/api/core/bitstreams/95d0c174-e80a-4162-bf83-aed446713d25/content",
+      "sha256": "6664F5EEC56EDF9D279DE9F9EB1C9FF7C28F515F27D7440B1187CDEAADC11EE5"
+    },
+    {
+      "name": "ehl_1999_ifdp640.pdf",
+      "url": "https://www.federalreserve.gov/pubs/ifdp/1999/640/ifdp640.pdf",
+      "sha256": "8389D9F3CB339785A5CD3F8079760BEDD96688BFA54A0A2C435C9DE6CDD31766"
+    }
+  ]
+}
