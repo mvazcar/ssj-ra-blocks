@@ -105,6 +105,38 @@ calibration. Moving `psi_p` is an explicit change in the Phillips-curve slope.
 ## 3. Wage-rigidity comparison core
 
 These models follow Dennery's comparison and assume flexible goods prices.
+
+### Why there is no separate dynamic IS equation
+
+The household Euler equation has **not** been dropped. Before imposing the
+wage-model equilibrium conditions, its log-linear gap form is
+
+\[
+\sigma(c_t-E_tc_{t+1})
+=-(i_t-E_t\pi^p_{t+1}-r_t^n).
+\]
+
+In the sticky-price RANK models, this remains a separate dynamic IS equation
+because the output gap and price inflation are independent endogenous
+variables. The sticky-wage comparison instead has flexible goods prices, no
+capital or government spending, and
+
+\[
+c_t=y_t=(1-\alpha)l_t.
+\]
+
+Moreover, expected real-wage growth satisfies
+
+\[
+E_t\Delta(w-p)_{t+1}=E_t(\pi^w_{t+1}-\pi^p_{t+1}).
+\]
+
+This identity and the relevant intratemporal real-wage condition let us
+substitute consumption, output, and price inflation out of the Euler equation.
+The resulting forward-looking condition is written directly in labor and wage
+inflation. It is the wage model's transformed dynamic IS equation, not an
+additional assumption.
+
 Let `l` be the labor gap and
 
 \[
@@ -121,7 +153,10 @@ i_t=\phi_\pi^w\pi_t^w+\phi_y y_t+\nu_t.
 
 ### Worker/union monopoly cartridge
 
-Intertemporal labor demand:
+Workers set wages and firms choose employment. Flexible goods prices imply
+`W/P=MPL`; in gap form, `mpl_t=-alpha*l_t`. Combining that condition with the
+Euler equation gives Dennery equation (8), the intertemporal labor-demand
+condition:
 
 \[
 [\sigma(1-\alpha)+\alpha](l_t-E_tl_{t+1})
@@ -142,7 +177,10 @@ Wage Phillips curve:
 
 ### Employer monopsony cartridge
 
-Intertemporal labor supply (Dennery equation 9):
+Firms set wages and households choose employment. The household condition is
+`W/P=MRS`, with `mrs_t=sigma*c_t+phi*l_t`. Combining it with the Euler equation
+cancels the consumption terms and gives Dennery equation (9), the
+intertemporal labor-supply condition:
 
 \[
 \phi(l_t-E_tl_{t+1})
@@ -161,8 +199,13 @@ Monopsonistic wage Phillips curve (Dennery equation 7 and footnote 13):
 \frac{q}{1+\alpha\eta}<0.
 \]
 
-The sign reversal and the intertemporal-block replacement are both visible in
-the code and in the generated DAG difference.
+Thus `labor_demand_monopoly` and `labor_supply_monopsony` are the two wage-model
+counterparts of `dynamic_is`. Each model still has one intertemporal target and
+one Phillips-curve target for its two unknowns, `l` and `pi_w`. Adding
+`dynamic_is` as a third target would impose the household Euler equation twice
+and overdetermine the reduced system. The sign reversal and the
+intertemporal-block replacement are both visible in the code and in the
+generated DAG difference.
 
 ## 4. Five model assemblies
 
