@@ -139,7 +139,7 @@ mix of these five blocks.
 ## Repository map
 
 ```text
-ra-ssj-blocks/
+ssj-ra-blocks/
 |-- run_models.py                 one supported entry point
 |-- requirements.txt             runtime dependencies
 |-- requirements-dev.txt         runtime plus tests
