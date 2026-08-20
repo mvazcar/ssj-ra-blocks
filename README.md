@@ -1,4 +1,4 @@
-# RA-SSJ Blocks
+# SSJ RA-Blocks
 
 An explicit five-model ladder for learning how representative-agent RBC and
 New Keynesian models are assembled with the
